@@ -1,0 +1,219 @@
+<!--{% extends "layout.html" %}-->
+<!--{% import "macros.html" as macros %}-->
+<!--{% block title %}SkyWriter{% endblock %}-->
+<!--{% block page_content %}-->
+<!--<div class="col-sm-9 col-md-9">-->
+    <!--{% for novel in iter(novels) %}-->
+    <!--<div class="row">-->
+        <!--<div class="col-sm-3 col-md-3">-->
+
+            <!--<div class="thumbnail">-->
+                <!--<a href="{{url_for('novel',id=novel.id)}}">-->
+                    <!--<p> <h5>Book: {{novel.title|title}}</h5></p>-->
+
+                    <!--<div class="caption">-->
+                        <!--<ul>-->
+                            <!--<li>Author: {{novel.author }}</li>-->
+                            <!--<li>Genre: {{novel.genre }}</li>-->
+                            <!--<li>Category: {{novel.category }}</li>-->
+                            <!--<li>Download Count: {{novel.download_count }}</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+
+                <!--</a>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;{% endfor %}&ndash;&gt;-->
+
+
+        <!--</div>-->
+        <!--<div class="col-sm-3 col-md-3">-->
+            <!--&lt;!&ndash;{% for novel in novels[9:17] %}&ndash;&gt;-->
+            <!--<div class="thumbnail">-->
+                <!--<a href="{{url_for('novel',id=novel.id)}}">-->
+                    <!--<p> <h5>Book: {{next(novel).title|title}}</h5></p>-->
+
+                    <!--<div class="caption">-->
+                        <!--<ul>-->
+                            <!--<li>Author: {{novel.author }}</li>-->
+                            <!--<li>Genre: {{novel.genre }}</li>-->
+                            <!--<li>Category: {{novel.category }}</li>-->
+                            <!--<li>Download Count: {{novel.download_count }}</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+
+                <!--</a>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;{% endfor %}&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="col-sm-3 col-md-3">-->
+            <!--&lt;!&ndash;{% for novel in novels[17:25] %}&ndash;&gt;-->
+            <!--<div class="thumbnail">-->
+                <!--<a href="{{url_for('novel',id=novel.id)}}">-->
+                    <!--<p> <h5>Book: {{next(novel).title|title}}</h5></p>-->
+
+                    <!--<div class="caption">-->
+                        <!--<ul>-->
+                            <!--<li>Author: {{novel.author }}</li>-->
+                            <!--<li>Genre: {{novel.genre }}</li>-->
+                            <!--<li>Category: {{novel.category }}</li>-->
+                            <!--<li>Download Count: {{novel.download_count }}</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+
+                <!--</a>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;{% endfor %}&ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--{% endfor %}-->
+<!--</div>-->
+<!--{% endblock %}-->
+
+
+<!--&lt;!&ndash;{% extends "layout.html" %}&ndash;&gt;-->
+<!--&lt;!&ndash;{% import "macros.html" as macros %}&ndash;&gt;-->
+<!--&lt;!&ndash;{% block title %}SkyWriter{% endblock %}&ndash;&gt;-->
+<!--&lt;!&ndash;{% block page_content %}&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="col-sm-9 col-md-9">&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+        <!--&lt;!&ndash;<ul class="grid">&ndash;&gt;-->
+            <!--&lt;!&ndash;{% for novel in novels %}&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="thumbnail">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a href="{{url_for('novel',id=novel.id)}}">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<p> <h5>Book: {{novel.title|title}}</h5></p>&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;<div class="caption">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<ul class="info">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<li>Author: {{novel.author }}</li>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<li>Genre: {{novel.genre }}</li>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<li>Category: {{novel.category }}</li>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<li>Download Count: {{novel.download_count }}</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</li>&ndash;&gt;-->
+            <!--&lt;!&ndash;{% endfor %}&ndash;&gt;-->
+
+        <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+
+
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;{% endblock %}&ndash;&gt;-->
+
+<!--{% extends "layout.html" %}-->
+<!--{% block title %}Novel{% endblock %}-->
+<!--{% block page_content %}-->
+<!--<div class="col-sm-9 col-md-9">-->
+<!--<div class="row">-->
+    <!--<div class="panel panel-default">-->
+        <!--<div class="panel-heading">-->
+            <!--<h3 class="panel-title">{{novel.title|title}}</h3>-->
+        <!--</div>-->
+        <!--<div class="panel-body">-->
+            <!--<ul>-->
+                <!--<li>Author: {{novel.author|title }}</li>-->
+                <!--<li>Genre: {{novel.genre }}</li>-->
+                <!--<li>Category: {{novel.category }}</li>-->
+                <!--<li>Download Count: {{novel.download_count }}</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--{% if similar_novels %}-->
+<!--<div class="row">-->
+    <!--<div class="panel panel-default">-->
+        <!--<div class="panel-heading">-->
+            <!--<h3 class="panel-title">Similar Novels (Stylistically)</h3>-->
+        <!--</div>-->
+        <!--<div class="panel-body">-->
+            <!--{% for novel,score in similar_novels %}-->
+            <!--{% if loop.index0 is divisibleby 3 %}-->
+            <!--<div class="row">-->
+
+                <!--{% endif %}-->
+                <!--<div class="col-sm-3 col-md-3">-->
+
+                    <!--<div class="thumbnail">-->
+                        <!--<a href="{{url_for('novel',id=novel.id)}}">-->
+                            <!--<p> <h5>Book: {{novel.title|title}}</h5></p>-->
+
+                            <!--<div class="caption">-->
+                                <!--<ul>-->
+                                    <!--<li>Author: {{novel.author|title }}</li>-->
+                                    <!--<li>Genre: {{novel.genre }}</li>-->
+                                    <!--<li>Category: {{novel.category }}</li>-->
+                                    <!--<li>Download Count: {{novel.download_count }}</li>-->
+                                    <!--<li>Similarity : {{score }}</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+
+                        <!--</a>-->
+                    <!--</div>-->
+
+
+                <!--</div>-->
+                <!--{% if loop.index is divisibleby 3%}-->
+            <!--</div>-->
+
+            <!--{% endif %}-->
+
+            <!--{% endfor %}-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--{% endif %}-->
+<!--<hr/>-->
+<!--{% if dissimilar_novels %}-->
+<!--<div class="row">-->
+    <!--<div class="panel panel-default">-->
+        <!--<div class="panel-heading">-->
+            <!--<h3 class="panel-title">Dissimilar Novels(Stylistically)</h3>-->
+        <!--</div>-->
+        <!--<div class="panel-body">-->
+            <!--{% for novel,score in dissimilar_novels %}-->
+            <!--{% if loop.index0 is divisibleby 3 %}-->
+            <!--<div class="row">-->
+
+                <!--{% endif %}-->
+                <!--<div class="col-sm-3 col-md-3">-->
+
+                    <!--<div class="thumbnail">-->
+                        <!--<a href="{{url_for('novel',id=novel.id)}}">-->
+                            <!--<p> <h5>Book: {{novel.title|title}}</h5></p>-->
+
+                            <!--<div class="caption">-->
+                                <!--<ul>-->
+                                    <!--<li>Author: {{novel.author|title }}</li>-->
+                                    <!--<li>Genre: {{novel.genre }}</li>-->
+                                    <!--<li>Category: {{novel.category }}</li>-->
+                                    <!--<li>Download Count: {{novel.download_count }}</li>-->
+                                    <!--<li>Similarity : {{score }}</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+
+                        <!--</a>-->
+                    <!--</div>-->
+
+
+                <!--</div>-->
+                <!--{% if loop.index is divisibleby 3%}-->
+            <!--</div>-->
+
+            <!--{% endif %}-->
+
+            <!--{% endfor %}-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--{% endif %}-->
+
+<!--</div>-->
+
+
+<!--{% endblock %}-->

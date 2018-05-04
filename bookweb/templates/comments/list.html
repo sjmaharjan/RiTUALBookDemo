@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% import "macros.html" as macros %}
+{% block title %}Comments {% endblock %}
+
+{% block leftnav %}
+<div></div>
+{% endblock %}
+
+{% block page_content %}
+
+
+<table class="table  table-striped">
+    <thead>
+    <th>Type</th>
+    <th>Commenter</th>
+     <th>Book</th>
+    <th>Comment</th>
+    <th>Elapsed Time</th>
+    </thead>
+    <tbody>
+    {%  for comment in comments|sort(attribute='created_at',reverse=True)  %}
+    <tr>
+        <th>{% if comment.comment_type == 'RecommendationComment' %} Reco {% else %} Book {% endif %}</th>
+        <td>{{ comment.author }}</td>
+         <td><a href="{{url_for('comments.detail',id=comment.book.book_id,slug=comment.book.slug)}}">{{ comment.book.title |title }}</a></td>
+        <td> {{ comment.body|truncate(100, True) }}</td>
+        <td>{{ moment(comment.created_at).fromNow() }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

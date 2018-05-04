@@ -1,0 +1,157 @@
+{% extends "layout.html" %}
+{% block title %}Book{% endblock %}
+{% block leftnav %}
+<div id="left-nav">
+    <div class="col-sm-3 col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">Feature </div>
+            <div></div>
+
+            <form action={{url_for('recommendations.list',id=book.book_id,slug=book.slug) }} method="post"
+                  class="form-horizontal" role="form" name="config" style="overflow-y:auto">
+                <fieldset style=" margin-left:20px;padding:5px">
+                    {% for col in features%}
+                        {% if loop.index ==1 %}
+                        <ul>
+                            <li> Lexical Features
+                                {%endif%}
+                                {% if loop.index >=1 and loop.index <=17 %}
+                                <ul>
+                                    <li>
+                                        <a href="{{url_for('features.list', feature_name=col, src_id=book.book_id, des_id=book_des.book_id)}}" class="load">
+                                            {{col}}
+                                        </a>
+                                    </li>
+                                </ul>
+                                {%endif%}
+                                 {% if loop.index ==17 %}
+                            </li>
+                        </ul>
+                        {%endif%}
+                    {% if loop.index ==18 %}
+                        <ul>
+                            <li> Syntactic Features
+                                {%endif%}
+                                {% if loop.index >=18 and loop.index <=25 %}
+                                <ul>
+                                    <li>
+                                        <a href="{{url_for('features.list', feature_name=col, src_id=book.book_id, des_id=book_des.book_id)}}" class="load">
+                                            {{col}}
+                                        </a>
+                                    </li>
+                                </ul>
+                                {%endif%}
+                                 {% if loop.index ==25 %}
+                            </li>
+                        </ul>
+                        {%endif%}
+                    {% if loop.index ==26 %}
+                        <ul>
+                            <li> Writing Density Features
+
+                                <ul>
+                                    <li>
+                                        <a href="{{url_for('features.list', feature_name=col, src_id=book.book_id, des_id=book_des.book_id)}}" class="load">
+                                            {{col}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        {%endif%}
+                      {% if loop.index ==27 %}
+                        <ul>
+                            <li> Readability Features
+
+                                <ul>
+                                    <li>
+                                        <a href="{{url_for('features.list', feature_name=col, src_id=book.book_id, des_id=book_des.book_id)}}" class="load">
+                                            {{col}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        {%endif%}
+
+
+                    <!--
+                    <table>
+                        {% if loop.index ==1 %}
+                        <tr>Lexical</tr>
+                        {%endif%}
+                        <tr>
+                            <td>
+                   <a href="{{url_for('features.list', feature_name=col, src_id=book.book_id, des_id=book_des.book_id)}}" class="load">
+                       {{col}}
+                   </a>
+                            </td>
+                        </tr>
+                        </table>
+                        -->
+                    {%endfor%}
+
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block page_content %}
+
+<div align="center" class="col-sm-9 col-md-9">
+
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+    <div class="row">
+        <div class="panel panel-default" style="overflow-y:auto">
+            <img align = left width="150" height="200" src="{{url_for('static', filename= 'image/')}}{{book_des.book_id}}_{{book_des.slug}}.jpg">
+             <img align = right width="150" height="200" src="{{url_for('static', filename= 'image/')}}{{book.book_id}}_{{book.slug}}.jpg">
+        </div>
+        </div>
+    <div class="row">
+
+        <div class="panel panel-default" style="overflow-y:auto">
+{{my_plot}}
+
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="panel panel-default" style="overflow-y:auto">
+            <table>
+                <tr><td>"Feature Avg:" {{avg[1]}}</td></tr>
+                <tr><td>"AVG:" {{avg[0]}} </td></tr>
+            </table>
+
+        </div>
+    </div>
+        <div class="row">
+
+        <div class="panel panel-default" style="overflow-y:auto">
+            <table style="border-collapse: collapse;">
+
+                <tr style="border:2px solid;">
+                    <td  valign = "top"> <img width="150" height="200" src="{{url_for('static', filename= 'image/')}}{{book_des.book_id}}_{{book_des.slug}}.jpg"></td>
+                    <td > {{pi_plot2}}</td></tr>
+                <tr style="border:2px solid ;">
+                    <td valign = "top"><img align = "right" width="150" height="200" src="{{url_for('static', filename= 'image/')}}{{book.book_id}}_{{book.slug}}.jpg"></td>
+                <td> {{pi_plot1}}</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}
+

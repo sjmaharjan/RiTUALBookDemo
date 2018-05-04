@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% import "macros.html" as macros %}
+{% block title %}Search Results{% endblock %}
+{% block page_content %}
+
+
+
+
+
+<div class="col-sm-9 col-md-9">
+<div class="row">
+        <div class="panel panel-default" >
+            <div class="panel-heading">
+                <h3 class="panel-title">Search Results</h3>
+            </div>
+
+            <ul class="list-group">
+
+                {% if  not books %}
+                <li> &nbsp; Sorry, no matches.
+               </li>
+                {% else %}
+                {% for book in books %}
+
+
+               <li> <a href="{{url_for('books.detail',id=book.book_id,slug=book.slug)}}"
+                   class="list-group-item"><strong><span style="color:#337ab7" class="highlight">{{book.title|title}}    </span></strong>, By:
+                    {{", ".join(book.authors)|title  }}, Genre(s): {{", ".join(book.genre) }}
+               </a></li>
+
+
+                {% endfor %}
+
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    </div>
+
+
+
+<script>
+  $.fn.highlight = function(words) {
+   //alert(this.innerHTML);
+    return this.each(function(){
+            content =  $( this ).text();
+            pattern = new RegExp('('+ words.join('|')+')','gi');
+            replaceWith = '<mark>$1</mark>';
+            highlighted = content.replace(pattern,replaceWith);
+          $(this).html(highlighted);
+    });
+};
+
+$(".highlight").highlight(["{{query}}"]);
+
+</script>
+{% endblock %}

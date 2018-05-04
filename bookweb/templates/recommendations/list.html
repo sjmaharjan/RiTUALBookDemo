@@ -1,0 +1,211 @@
+{% extends "layout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Book{% endblock %}
+{% block leftnav %}
+
+<div id="left-nav">
+    <div class="col-sm-3 col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">Feature Configuration</div>
+            <div></div>
+
+            <form action={{url_for('recommendations.list',id=book.book_id,slug=book.slug) }} method="post"
+                  class="form-horizontal" role="form" name="config" style="overflow-y:auto">
+                <fieldset style=" margin-left:20px;padding:5px">
+
+
+                    {{ wtf.quick_form(form) }}
+
+                    <div class="actions">
+                        <input type="submit" class="btn btn-primary" value="Get Recommendations">
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block page_content %}
+
+<script>
+
+$(document).ready(function () {
+    $( "#commentSubmit" ).click(function() {
+
+        $( "#commentForm" ).submit();
+    });
+});
+
+
+
+
+
+
+
+
+</script>
+
+
+
+<div class="col-sm-9 col-md-9">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{book.title|title}}
+                    
+                    <div class='clearfix'></div>
+                </h3>
+
+            </div>
+            <div class="panel-body">
+                {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
+                {% endfor %}
+                <table style="width:100%">
+                    <tr >
+                        <td style="vertical-align:top">
+                            <ul>
+                            <li>Author: {{book.authors[0]|title }}</li>
+                            <li>Genre: {{book.genre[0]|replace('_',' ') }}</li>
+                            <li></li>
+                            <li><a href="{{url_for('comments.detail',id=book.book_id,slug=book.slug)}}">Comments: <span
+                                    class="badge">{{book.comments|selectattr("comment_type", "equalto","RecommendationComment")|list|length}}</span></a>
+                            </li>
+
+                            </ul>
+                        </td>
+                        <td>
+                            <img align = right width="150" height="200" src="{{url_for('static', filename= 'image/')}}{{book.book_id}}_{{book.slug}}.jpg">
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    {% if not most_similar.empty %}
+    <div class="row">
+
+        <div class="panel panel-default" style="overflow-y:auto">
+            <div class="panel-heading">
+                <h3 class="panel-title">Similar Books (Stylistically)</h3>
+            </div>
+
+            <table class="table table-bordered table-striped"  id="table_most"
+                   data-toggle="table">
+
+
+            {% for index, row in most_similar.iterrows() %}
+            {% if loop.index % 3 == 1 %}
+                <tr>
+                   {% endif %}
+                            <td>
+
+                                <form method="post" action="{{url_for('recommendations.listDetail',id=book.book_id,index=index, myType=0)}}">
+                                    <a href="{{url_for('books.detail',id=index,slug=row['slug'])}}" class="load">
+                                    <img href align = center width="150" height="200" src="{{url_for('static', filename= 'image/')}}{{row['image_title']}}.jpg" /></a>
+                                    <input type="hidden" , value="{{most_similar}}", name="most_similar">
+                                    <input type="hidden" , value="{{most_similar_2}}", name="most_similar_2">
+                                    <input type="hidden" , value="{{least_similar}}", name="least_similar">
+                                    <input type="hidden" , value="{{least_similar_2}}", name="least_similar_2">
+                                    <input align="right" style="font-size:12px" type="submit" value="Similarity Features">
+                                </form>
+                                <!--
+                                <a href="{{url_for('recommendations.listDetail',id=book.book_id,index=index, myType=0)}}" role="button"
+                                   class="btn btn-default  load pull-right">Value Details</a>-->
+
+
+                            </td>
+
+                    {% if loop.index is divisibleby 3 %}
+
+                </tr>
+            {% endif %}
+
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    {% endif %}
+
+    {% if not least_similar.empty %}
+    <div class="row">
+        <div class="panel panel-default" style="overflow-y:auto">
+            <div class="panel-heading">
+                <h3 class="panel-title">Dissimilar Novels(Stylistically)</h3>
+            </div>
+
+            <table class="table table-bordered table-striped" id="table_least"
+                   data-toggle="table" >
+
+
+                {% for index, row in least_similar.iterrows() %}
+                {% if loop.index %3==1 %}
+                <tr>
+                    {% endif %}
+                            <td>
+                                <form method="post" action="{{url_for('recommendations.listDetail',id=book.book_id,index=index, myType=1)}}">
+                                    <a href="{{url_for('books.detail',id=index,slug=row['slug'])}}" class="load">
+                                    <img href align = center width="150" height="200" src="{{url_for('static', filename= 'image/')}}{{row['image_title']}}.jpg" /></a>
+                                    <input type="hidden" , value="{{most_similar}}", name="most_similar">
+                                    <input type="hidden" , value="{{most_similar_2}}", name="most_similar_2">
+                                    <input type="hidden" , value="{{least_similar}}", name="least_similar">
+                                    <input type="hidden" , value="{{least_similar_2}}", name="least_similar_2">
+                                    <input align="right" style="font-size:12px" type="submit" value="Similarity Features">
+
+                                </form>
+                                <!--<a href="{{url_for('recommendations.listDetail',id=book.book_id,index=index, myType=1)}}" role="button"
+                                   class="btn btn-default  load pull-right">Value Details</a>-->
+
+
+                            </td>
+
+                    {% if loop.index is divisibleby 3 %}
+
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+
+<div class="modal fade" id="commentModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{url_for('recommendations.comment',id=book.book_id)}}" method="post" id="commentForm"
+                  name="comment">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add New Comment</h4>
+                </div>
+                <div class="modal-body">
+                    {{ wtf.quick_form(form_comment) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="commentSubmit" class="btn btn-primary" type="submit" data-dismiss="modal">Comment
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+
+    </div><!-- /.modal-dialog -->
+</div>
+
+{% endblock %}

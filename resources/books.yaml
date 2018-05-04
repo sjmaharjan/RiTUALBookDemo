@@ -1,0 +1,26 @@
+---
+
+#Books whose meta data to be downloaded using google api
+
+books:
+  - google_book_id : VgLKYawnwHgC
+    isbn10         : 0345493419
+    title          : Echelon
+
+  - google_book_id : 8st8cSkyGt8C
+    isbn10         : 0345502183
+    title          : Empyre
+
+  - google_book_id : PCAUjwEACAAJ
+    isbn10         : 1942600674
+    title          : "Brat Pack America"
+
+
+
+#Books without isbn but with content in word or pdf format
+other_books:
+  - title          : "Bullet Catcher"
+    authors        : ["Joaquin Lowe"]
+
+  - title          : "In Her Own Sweet Time"
+    authors        : ["Rachel Lehmann-Haupt"]

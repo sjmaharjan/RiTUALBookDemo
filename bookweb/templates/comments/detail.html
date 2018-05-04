@@ -1,0 +1,126 @@
+
+{% extends "layout.html" %}
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "macros.html" as macros %}
+{% block title %}Comment Details {% endblock %}
+
+
+
+{% block leftnav %}
+<div></div>
+{% endblock %}
+
+{% block page_content %}
+
+
+<script>
+
+$(document).ready(function () {
+    $( "#commentSubmit" ).click(function() {
+
+        $( "#commentForm" ).submit();
+    });
+});
+
+
+
+</script>
+
+
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ message }}
+</div>
+{% endfor %}
+
+<div class="book">
+    <div class="page-header">
+        <h4>Comments for the book: {{book.title|title}}
+<!--
+            <div class="btn-group pull-right" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-default" data-toggle="modal"
+                        data-target="#commentModal">
+                    Add Comment
+               </button>
+-->
+
+            </div>
+            <div class='clearfix'></div>
+        </h4>
+
+
+    </div>
+
+    <ul class="comments">
+
+        {% for comment in comments|sort(attribute='created_at',reverse=True) %}
+
+        <li class="comment">
+
+            <div class="comment-author">
+                {{ comment.author }}
+            </div>
+
+
+            <div class="comment-date">{{ moment(comment.created_at).fromNow() }}</div>
+            <div class="comment-content">
+
+                {% if comment.comment_type == 'RecommendationComment' %}
+
+                <p><span class="badge">Features:</span> {{comment.features|join(', ')}} </p>
+
+                <p><span class="badge">Number of recommendations:</span> {{comment.similar_books|length}} </p>
+
+                <p><span class="badge">Similar:</span> {% for sim in comment.similar_books %} {{sim|safe}}, {% endfor %}
+                </p>
+
+
+                <p><span class="badge">Dissimilar: </span> {% for dsim in comment.dissimilar_books %} {{dsim|safe}}, {%
+                    endfor %} </p>
+
+
+<p><span class="badge">Experiential Language tags: </span> {% for tag in comment.exp_lang_tags %} {{tag|safe}}, {%
+                    endfor %} </p>
+
+
+                {% endif %}
+
+                {{ comment.body }}
+            </div>
+
+
+        </li>
+        {% endfor %}
+
+    </ul>
+
+</div>
+
+
+
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{url_for('comments.detail',id=book.book_id,slug=book.slug)}}" method="post" id="commentForm">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add New Comment</h4>
+                </div>
+                <div class="modal-body">
+                    {{ wtf.quick_form(form) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="commentSubmit" class="btn btn-primary" type="submit" data-dismiss="modal">Comment
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+
+    </div><!-- /.modal-dialog -->
+</div>
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends "layout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Book{% endblock %}
+{% block page_content %}
+
+<!--
+$(document).ready(function () {
+    $( "#commentSubmit" ).click(function() {
+
+        $( "#commentForm" ).submit();
+    });
+        $( "#contentSubmit" ).click(function() {
+
+        $( "#contentForm" ).submit();
+    });
+    $("textarea").height($("textarea")[0].scrollHeight);
+});-->
+<script xmlns="http://www.w3.org/1999/html">
+
+$(document).ready(function () {
+    $( "#commentSubmit" ).click(function() {
+
+        $( "#commentForm" ).submit();
+    });
+});
+
+
+function myFunction2() {
+    var x = document.getElementById('myDIV');
+    x.style.visibility = 'visible';
+    if (x.style.display === 'none') {
+        x.style.display = 'initial';
+
+
+    } else {
+        x.style.display = 'none';
+
+    }
+}
+
+</script>
+
+<body>
+<div class="col-sm-9 col-md-9">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{book.title|title}}
+                <div class="btn-group pull-right" role="group" aria-label="Basic example">
+              
+
+		   <button type="button" class="btn btn-default" data-toggle="modal"
+                            data-target="#commentModal">
+                        Add Comment
+           </button>
+		{% if book.is_active %}
+                    <a href="{{url_for('recommendations.list',id=book.book_id,slug=book.slug)}}" role="button"
+                       class="btn btn-default  load">Find Similar Books</a>
+
+		{% endif %}
+                     <button id = "sentimentButton" type="button"  class="btn btn-default" onclick="myFunction2()">Sentiment Trend</button>
+                </div>
+                <div class='clearfix'></div>
+            </h3>
+
+        </div>
+        <div class="panel-body">
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
+            <ul>
+                <table style="width:100%">
+                    <tr>
+                        <td style="vertical-align:top">
+                        <li><span class="badge">Author(s):</span> {{", ".join(book.authors) }}</li>
+                           <li>Genre(s): {{", ".join(book.genre)| replace('_',' ') }}</li>
+                        <li>Average Rating: {{book.avg_rating }}</li>
+                        </td>
+
+                        <td> <img align = right width="150" height="200" src="{{url_for('static', filename= 'image/')}}{{book.book_id}}_{{book.slug}}.jpg" /></td>
+                    </tr>
+                </table>
+                </br>
+        
+                {% if book.book_type=='GoogleBook' %}
+                <li>SelfLink: <a href="{{book.self_link }}" target="_blank">{{book.self_link }}</a></li>
+                {% endif %}
+                <li></li>
+                <li>  <a href="{{url_for('comments.detail',id=book.book_id,slug=book.slug)}}">Comments: <span class="badge">{{book.comments|length}}</span></a></li>
+
+            </ul>
+            <hr/>
+                        <div id="myDIV" style="visibility: hidden;">
+                        {{pichart}}
+                        {{p}}
+                    </div>
+             <script>$("#sentimentButton").triggerHandler("click")</script>
+            <!--
+             <form action="{{url_for('books.updateContent',id=book.book_id,slug=book.slug)}}"  method="post" id="contentForm">
+                <div id="novel-content"  contenteditable="true" style="font-size:large; line-height:150%; white-space: pre-wrap;">
+                                <button id="contentSubmit" style="background-color: lightblue;position: absolute;right: 40px; color:black" class="btn btn-primary" type="submit" data-dismiss="modal">
+                                    <b>Update text</b>
+                                 </button>
+                    <textarea style="width:100%;" name="text">{{book.content }}</textarea>
+
+
+
+              </div>
+             </form>
+            -->
+            <div id="novel-content" style="font-size:large; line-height:150%; white-space: pre-wrap;">
+
+            {{book.content | truncate(15000) }}
+            </div>
+
+            <!--
+         <textarea style="width:100%;" name="text">{{book.content }}</textarea>-->
+        </div>
+    </div>
+
+
+</div>
+</body>
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{url_for('books.detail',id=book.book_id,slug=book.slug)}}" method="post" id="commentForm"
+                  name="comment">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add New Comment</h4>
+                </div>
+                <div class="modal-body">
+                    {{ wtf.quick_form(form) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!--<button id="commentSubmit" class="btn btn-primary" type="submit" data-dismiss="modal">Comment
+                    </button>-->
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+
+
+
+<!--<h2>Add a comment</h2>-->
+<!--<form action="." method="post">-->
+<!--{{ wtf.quick_form(form) }}-->
+<!--<div class="actions">-->
+<!--<input type="submit" class="btn primary" value="comment">-->
+<!--</div>-->
+<!--</form>-->
+
+{% endblock %}

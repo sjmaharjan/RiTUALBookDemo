@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% import "macros.html" as macros %}
+{% block title %}Removed Books Booxby{% endblock %}
+{% block leftnav %}
+<div></div>
+{% endblock %}
+{% block page_content %}
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <th>SN</th>
+    <th>Title</th>
+    <th>Authors</th>
+    <th>Actions</th>
+    </thead>
+    <tbody>
+    {% for book in (books) %}
+    <tr>
+        <th>{{ loop.index}}</th>
+        <td><a href="{{ url_for('books.detail',id=book.book_id, slug=book.slug) }}">{{ book.title |title }}</a></td>
+        <td>{{", ".join(book.authors) }}</td>
+        <td><a href="{{ url_for('books.activate',id=book.book_id, slug=book.slug ) }}" class="btn btn-primary">Restore</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% import "macros.html" as macros %}
+{% block title %}Feature Values{% endblock %}
+{% block leftnav %}
+<div></div>
+{% endblock %}
+{% block page_content %}
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+<table class="table table-bordered table-striped" id="table"
+               data-toggle="table">
+    <thead>
+    <th data-field="sn">SN</th>
+    <th data-field="src_title">{{src_book.title}}</th>
+    <th data-field="book_src" data-sortable="true">Values</th>
+    {%  if  des_book %}
+    <th data-field="des_title">{{des_book.title}}</th>
+    <th data-field="book_des" data-sortable="true">Values</th>
+    {% endif %}
+
+    </thead>
+    <tbody>
+    {%  if  des_book %}
+    {% for src, des in feature_values %}
+    <tr>
+        <td>{{ loop.index}}</td>
+        <td>{{ src[0]}}</td>
+        <td >{{src[1]|round(3,'common')}}</td>
+        <td>{{ des[0]}}</td>
+        <td>{{des[1]|round(3,'common')}}</td>
+
+
+    </tr>
+    {% endfor %}
+    {% else %}
+    {% for src in feature_values %}
+    <tr>
+        <td>{{ loop.index}}</td>
+        <td>{{ src[0]}}</td>
+        <td>{{src[1]|round(3,'common')}}</td>
+
+
+
+    </tr>
+     {% endfor %}
+    {% endif %}
+    </tbody>
+</table>
+
+{% endblock %}
+

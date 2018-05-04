@@ -1,0 +1,28 @@
+{% extends "admin/base.html" %}
+{% import "macros.html" as macros %}
+{% block title %}Booxby Admin Dashboard{% endblock %}
+
+
+{% block panel_title %}
+Dashboard
+{% endblock %}
+
+
+{% block page_content %}
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <th>Books</th>
+    <th>Stats</th>
+
+    </thead>
+    <tbody>
+    {%  for key, value in stats.iteritems() %}
+    <tr>
+        <th>{{key}}</th>
+        <td>{{value}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

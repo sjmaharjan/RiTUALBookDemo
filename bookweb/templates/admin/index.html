@@ -1,0 +1,119 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+
+
+<script>
+
+
+function mybuild() {
+
+    <a href="{{url_for('build.index')}}">
+}
+
+</script>
+
+
+<style>
+div.thumbnail {
+    border : 1px solid #ddd;
+    margin-top:50px;
+
+    margin-right: 5px;
+    margin-left: 10px;
+       display: flex;
+    align-items: center;
+    justify-content: center;
+    height:1000px;
+    width:200px
+
+
+}
+div.thumbnail:hover{
+    font-weight:bold;
+}
+</style>
+<body style="background-color: lightgray;">
+<div class="container">
+    <div id="wrapper" style="padding-bottom:100px;">
+ <table align="center" cellspacing="50">
+     <tr>
+         <td align="center">
+         <div  class ="thumbnail" id="mybuild" align="center" onclick="window.location.href='{{url_for('build.index')}}'" style=" background-color: lightgreen;height:100px;border-radius: 25px;"> Build </div>
+         </td>
+
+         <td align="center">
+         <div  class ="thumbnail" align="center" onclick="window.location.href='{{url_for('googlebook.index_view')}}'" style="background-color: lightblue;height:100px;border-radius: 25px;"> Google Book </div>
+         </td>
+
+         <td align="center">
+         <div  class ="thumbnail" align="center" onclick="window.location.href='{{url_for('gutenbergbook.index_view')}}'"  style="background-color: lightgreen; height:100px;border-radius: 25px;"> Gutenberg Book </div>
+         </td>
+
+     </tr>
+
+
+     <tr>
+         <td align="center">
+         <div  class ="thumbnail" align="center" onclick="window.location.href='{{url_for('authors.index_view')}}'" style="background-color: lightblue;height:100px;border-radius: 25px;"> Author </div>
+         </td>
+
+         <td align="center">
+         <div  class ="thumbnail" align="center" onclick="window.location.href='{{url_for('statistic.list')}}'" style="background-color: lightgreen;height:100px;border-radius: 25px;"> Statistics </div>
+         </td>
+          <td align="center">
+         <div  class ="thumbnail" align="center" onclick="window.location.href='{{url_for('fileadmin.index')}}'" style="background-color: lightblue;height:100px;border-radius: 25px;"> Uploaded Books </div>
+         </td>
+     </tr>
+
+         <!--
+         <td align="right">
+             <a href="{{url_for('build.index')}}" role="button" style="padding-right: 20px;height:50px;width:200px;background-color:transparent; border-color:red;"
+                       class="btn btn-default  load">
+                 Build
+
+             </a>
+
+         </td>
+         <td></td>
+         <td>
+             <a href="{{url_for('googlebook.edit_view')}}" role="button" style="padding-right: 20px;height:50px;width:200px;background-color:transparent; border-color:red;"
+                       class="btn btn-default  load">
+                 Google Book
+
+             </a>
+         </td>
+
+     </tr>
+     <tr>
+         <td> <a href="{{url_for('gutenbergbook.edit_view')}}" role="button" style="padding-right: 20px;height:50px;width:200px;background-color:transparent; border-color:red;"
+                       class="btn btn-default  load">
+                 Gutenberg Book
+
+             </a></td>
+         <td></td>
+         <td> <a href="{{url_for('authors.edit_view')}}" role="button" style="padding-right: 20px;height:50px;width:200px;background-color:transparent; border-color:red;"
+                       class="btn btn-default  load">
+                 Author
+
+             </a></td>
+
+     </tr>
+ </table>
+    <table><tr></tr></table>
+    <table align="center">
+     <tr>
+         <td alighn="center"> <a href="{{url_for('fileadmin.index')}}" role="button" style="padding-right: 20px;height:50px;width:200px;background-color:transparent; border-color:red;"
+                       class="btn btn-default  load">
+                 Uploaded Books
+
+             </a></td>
+
+
+     </tr>
+     -->
+ </table>
+    </div>
+</div>
+</body>
+{% endblock %}

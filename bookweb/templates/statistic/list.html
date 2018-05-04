@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% import "macros.html" as macros %}
+{% block title %}Statistics {% endblock %}
+
+{% block leftnav %}
+<div></div>
+{% endblock %}
+
+{% block page_content %}
+
+<script>
+$(document).ready(function(e) {
+
+$("#tb1").on("click","a",function(e){
+    e.preventDefault();
+    $(this).closest("tr").nextUntil(".parent").toggleClass("open");
+});
+
+$("#tb2").on("click","a",function(e){
+    e.preventDefault();
+    $(this).closest("tr").nextUntil(".parent").toggleClass("open");
+});
+ });
+</script>
+
+ <style type="text/css">
+tbody tr {
+    display : none;
+}
+tr.parent {
+    display : table-row;
+}
+tr.open {
+    display : table-row;
+}
+</style>
+
+<table id="tb1" class="table table-bordered table-striped" >
+    <tbody>
+        <tr class="parent">
+        <td width="70%"><a href="#">Book Condition</a></td>
+            <td width="30%"><a href="#">Value</a></td>
+        </tr>
+
+    {% for data in book_s %}
+
+        <tr>
+        <td># {{data['_id']|replace('_',' ')}}</td>
+        <td>{{data['count']}}</td>
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+</table>
+
+<table id="tb2"  class="table table-bordered table-striped">
+    <tbody>
+    <tr class="parent">
+        <td width="70%"><a href="#">Genre</a></td>
+        <td width="30%"><a href="#">Value</a></td>
+    </tr>
+
+
+ {% for data in book_s_g %}
+    <tr>
+        <td># {{data['_id']|replace('_',' ')}}</td>
+        <td>{{data['count']}}</td>
+    </tr>
+ {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock %}

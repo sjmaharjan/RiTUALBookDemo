@@ -1,0 +1,64 @@
+
+{% extends "layout.html" %}
+{% import "macros.html" as macros %}
+{% block title %}About{% endblock %}
+
+{% block leftnav %}
+<div></div>
+{% endblock %}
+
+{% block page_content %}
+
+<body>
+<div class="col-sm-10 col-md-6">
+    <div style="width:100%;height:auto" class="panel panel-default" >
+      <h style="font-family:Times New Roman;font-size:20px;padding:5px"> <b>
+          Book Demo Project
+      </b>
+
+    <p align="justify" style="font-family:Times New Roman;font-size:18px;padding:10px">
+        In this project we introduce a book recommendation system based on style and content analysis. We extract textual features to capture the structure of books and other style related attributes, including sentiment trend and readability. We then use these features to generate a similarity rank of books in our data base. To get familiar with all system functionalities, watch the instruction video. 
+
+        <br>
+        <br>
+        Features are the most important elements of our recommendation engine. The quality of recommendations depends on the careful design of features. We extract different types of features from books' content, which have been proven to capture different aspects of a book. We can categorize features into five main categories: Lexical Features, Syntactic Features, Writing Density, Readability and Phonetic Features. Further details of the features can be found in this paper:
+<br>
+<br>
+
+         <a style="font-size: 15px"   href="http://www.aclweb.org/anthology/E17-1114">Suraj Maharjan, John Arevalo, Manuel Montes, Fabio A. Gonza ́lez, and Thamar Solorio. 2017. A multi-task approach to predict likability of books.</a> 
+
+    </p>
+
+  
+    </div>
+</div>
+<div class="col-sm-3 col-md-5">
+<div style="width:100%;height:auto;margin:right;" class="panel panel-default">
+    <div>
+            <video  class= "center" width="400" height="300" align="right" controls>
+
+    <source src="{{url_for('static', filename= 'vedio/')}}out.mp4" type="video/mp4">
+
+    </video>
+        </div>
+        <div class="overlay">
+
+            <p align="middle" style="font-family:Times New Roman;font-size:15px"><b>
+                Instruction Video </b></p>
+
+
+    </div>
+</div>
+
+</div>
+</body>
+<style>
+.center{
+margin-left:auto;
+margin-right:auto;
+display:block
+}
+</style>
+
+
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+{% import "macros.html" as macros %}
+{% block title %}Charts{% endblock %}
+
+{% block page_content %}
+
+
+<div class="col-sm-9 col-md-9">
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{novel.title|title}} </h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li>Author: {{novel.author|title }}</li>
+                    <li>Genre: {{novel.genre }}</li>
+                    <li>Category: {{novel.category }}</li>
+                    <li>Download Count: {{novel.download_count }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Similar Novels (Stylistically)
+                    <!--<a href="{{url_for('chart',id=novel.id)}}">-->
+                    <!--<span class="badge pull-right"> charts</span></a> &lt;!&ndash; Split button &ndash;&gt;-->
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default">Genre</button>
+
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+
+                            </button>
+                            <ul class="dropdown-menu">
+                                {% for key,value in genre.items() %}
+                                <li><a href="{{ url_for('chart',id=novel.id, name = key) }}" class="load">{{key}}</a></li>
+                                {% endfor %}
+                                <li role="separator" class="divider"></li>
+                                <li><a href="{{ url_for('chart',id=novel.id, name = 'all') }}" class="load">ALL</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class='clearfix'></div>
+                </h3>
+            </div>
+
+            <div class="panel-body">
+                {% for feature, value in result.items() %}
+                <div style="float:left; padding:30px">
+                    <h3 class="title"> {{feature|title}}</h3>
+                    <canvas id="{{feature}}" width="300" height="300"></canvas>
+
+
+                    <script>
+   // bar chart data
+   var barData = {
+
+   labels : [{% for book,score in value %}
+                  "{{loop.index}}",
+              {% endfor %}],
+   datasets : [
+      {
+            fillColor:  "rgba(00,33,66,0.6)",
+            //fillColor:  "rgba(219,186,52,0.4)",
+            //strokeColor: "rgba(220,220,220,1)",
+            strokeColor: "rgba(00,33,66,0.7)",
+            pointColor: "rgba(151,187,205,1)",
+         data : [{% for book,score in value %}
+                      {{score|round(2)}},
+                    {% endfor %}]
+      }
+      ]
+
+
+   }
+
+   // get bar chart canvas
+   var mychart = document.getElementById("{{feature}}").getContext("2d");
+
+   steps = 1
+   max = 1.0
+   // draw bar chart
+   new Chart(mychart).Bar(barData, {
+        scaleOverride: true,
+        scaleSteps: steps,
+        scaleStepWidth: Math.ceil(max / steps),
+        scaleStartValue: 0,
+        scaleShowVerticalLines: true,
+        scaleShowGridLines : true,
+        //scaleGridLineColor: 'black',
+        barShowStroke : true,
+        scaleShowLabels: true
+   });
+
+
+
+
+
+                    </script>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="panel-footer"><ol> Legend
+
+
+                {% for feature,value in result.items() %}
+                {% if loop.index0 ==0%}
+                 {% for book,score in value %}
+                  <li>"{{book.title|title}}" </li>
+              {% endfor %}
+                {% endif %}
+                {% endfor %}
+
+            </ol></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

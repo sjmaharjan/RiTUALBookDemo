@@ -1,0 +1,33 @@
+{% extends "admin/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "macros.html" as macros %}
+
+{% block title %}Booxby Admin{% endblock %}
+
+{% block panel_title %}
+    {% if create %}
+      Add new Book
+    {% else %}
+      Edit Book
+    {% endif %}
+  {% endblock %}
+
+{% block panel_content %}
+
+
+<hr/>
+
+ <form action="?type={{ request.args.get('type') }}" method="post" enctype="multipart/form-data">
+   <div>
+    {{ wtf.quick_form(form) }}
+        <div class="actions">
+     <button  class="btn btn-primary" type="submit" >Save</button>
+      <a href="{{ url_for('admin.index') }}" class="btn btn-default">Cancel</a>
+    </div>
+</div>
+
+</form>
+
+
+
+{% endblock %}

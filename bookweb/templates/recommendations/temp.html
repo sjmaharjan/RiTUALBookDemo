@@ -1,0 +1,226 @@
+{% extends "layout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Book{% endblock %}
+{% block leftnav %}
+<div id="left-nav">
+    <div class="col-sm-3 col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">Feature Configuration</div>
+            <div></div>
+
+            <form action={{url_for('recommendations.list',id=book.book_id,slug=book.slug) }} method="post"
+                  class="form-horizontal" role="form" name="config" style="overflow-y:auto">
+                <fieldset style=" margin-left:20px;padding:5px">
+                    {{ wtf.quick_form(form) }}
+
+                    <div class="actions">
+                        <input type="submit" class="btn btn-primary" value="Get Recommendations">
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block page_content %}
+
+<script>
+
+$(document).ready(function () {
+    $( "#commentSubmit" ).click(function() {
+
+        $( "#commentForm" ).submit();
+    });
+});
+
+
+
+
+
+
+
+
+</script>
+
+
+
+<div class="col-sm-9 col-md-9">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{book.title|title}}
+                    <button type="button" class="btn btn-default  pull-right" data-toggle="modal"
+                            data-target="#commentModal">
+                        Add Comment
+                    </button>
+                    <div class='clearfix'></div>
+                </h3>
+
+            </div>
+            <div class="panel-body">
+                {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
+                {% endfor %}
+                <table style="width:100%">
+                    <tr >
+                        <td>
+                            <ul>
+                            <li>Author: {{book.authors[0]|title }}</li>
+                            <li>Genre: {{book.genre[0] }}</li>
+                            <li></li>
+                            <li><a href="{{url_for('comments.detail',id=book.book_id,slug=book.slug)}}">Comments: <span
+                                    class="badge">{{book.comments|selectattr("comment_type", "equalto","RecommendationComment")|list|length}}</span></a>
+                            </li>
+
+                            </ul>
+                        </td>
+                        <td>
+                            <img align = right width="150" height="200" src="{{url_for('static', filename= 'image/')}}{{book.book_id}}_{{book.slug}}.jpg">
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+
+    {% if not most_similar.empty %}
+
+
+
+
+    <div class="row">
+
+        <div class="panel panel-default" style="overflow-y:auto">
+            <div class="panel-heading">
+                <h3 class="panel-title">Similar Books (Stylistically)
+
+                    <div class='clearfix'></div>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <p>
+
+ {% if selected_tags %}
+                     Experiential Language tags selected:
+                    {% for tag in selected_tags %}
+                    {{tag }},
+                    {% endfor %}
+                    {% endif %}
+
+
+            </p>
+            </div>
+
+            <table class="table table-bordered table-striped" id="table_most"
+                   data-toggle="table">
+                <thead>
+                <th data-field="most_{{col}}" data-sortable="true">Title</th>
+
+                </thead>
+                <tbody>
+
+            {% for index, row in most_similar.iterrows() %}
+                <tr>
+                            <td>
+                                <a href="{{url_for('books.detail',id=index,slug=row['slug'])}}" class="load">
+                                    <img href align = center width="150" height="200" src="{{url_for('static', filename= 'image/')}}{{row['image_title']}}.jpg" /></a>
+                                <a href="{{url_for('recommendations.listDetail',id=book.book_id,index=index)}}" role="button"
+                                   class="btn btn-default  load pull-right">Value Details</a>
+
+
+                            </td>
+
+                </tr>
+
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    {% endif %}
+    <hr/>
+    {% if not least_similar.empty %}
+    <div class="row">
+        <div class="panel panel-default" style="overflow-y:auto">
+            <div class="panel-heading">
+                <h3 class="panel-title">Dissimilar Novels(Stylistically)</h3>
+            </div>
+
+            <table class="table table-bordered table-striped" id="table_least"
+                   data-toggle="table">
+                <thead>
+
+                {% for col in least_similar.columns|reverse %}
+               <th data-field="least_{{col}}" data-sortable="true">{{ col|replace('_',' ')|replace('-',', ') }}</th>
+                {% endfor %}
+                </thead>
+                <tbody>
+
+                {% for index, row in least_similar.iterrows() %}
+                <tr>
+                    {% for col in least_similar.columns|reverse %}
+                        {% if col=="Title"%}
+                    <td>{{row[col]|safe}}</td>
+
+
+                        {% elif col in ["avg","explang_avg","feature_avg"] %}
+                            <td> {{row[col]}}</td>
+                    {%else%}
+                    <td><a href="{{url_for('features.list', feature_name=col, src_id=book.book_id,des_id=index)}}" class="load">
+                            {{row[col]|round(3,'common')}}</a></td>
+
+
+
+                        {% endif %}
+                    {% endfor %}
+
+
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{url_for('recommendations.comment',id=book.book_id)}}" method="post" id="commentForm"
+                  name="comment">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add New Comment</h4>
+                </div>
+                <div class="modal-body">
+                    {{ wtf.quick_form(form_comment) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="commentSubmit" class="btn btn-primary" type="submit" data-dismiss="modal">Comment
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+
+    </div><!-- /.modal-dialog -->
+</div>
+
+{% endblock %}

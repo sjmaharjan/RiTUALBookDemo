@@ -1,0 +1,55 @@
+{% extends "admin/base.html" %}
+{% import "macros.html" as macros %}
+{% block title %}Booxby Admin{% endblock %}
+
+
+{% block panel_title %}
+Books
+{% endblock %}
+
+{% block panel_buttons %}
+<div class="pull-right">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default">Create new</button>
+
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+
+        </button>
+        <ul class="dropdown-menu">
+
+            {% for type in ('GutenbergBook', 'GoogleBook', 'Authors') %}
+            <li><a href="{{ url_for('admin.create', type=type) }}">{{ type|title
+                }}</a></li>
+            {% endfor %}
+        </ul>
+
+
+    </div>
+</div>
+<div class='clearfix'></div>
+{% endblock %}
+{% block page_content %}
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <th>Title</th>
+    <th>Authors</th>
+    <th>Status</th>
+    <th>Actions</th>
+    </thead>
+    <tbody>
+    {% for book in books %}
+    <tr>
+        <th><a href="{{ url_for('books.detail', id=book.book_id,slug=book.slug) }}">{{ book.title|title }}</a></th>
+
+        <td>{{", ".join(book.authors) }}</td>
+        <td>{% if book.is_active %} Active {% else %} Removed {% endif %}</td>
+        <td><a href="{{ url_for('admin.edit', id=book.book_id,slug=book.slug) }}" class="btn primary">Edit</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

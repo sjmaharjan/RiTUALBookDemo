@@ -1,0 +1,115 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Layout{% endblock %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+ {{ moment.include_jquery() }}
+{{ moment.include_moment() }}
+{% endblock %}
+
+
+
+{% block navbar %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+
+            <div class="nav-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li class="active"><a href="{{url_for('books.list')}}">Home</a></li>
+                <li><a href="{{url_for('comments.list')}}" class="load">Comments <span id="comment-count" class="badge badge-notify ">{{comment_count}}</span></a></li>
+                <li><a href="{{url_for('statistic.list')}}" class="load">Statistics</a></li>
+           
+                     <li><a href="{{url_for('books.about')}}" class="load">About</a></li>
+                {% block admin %}
+                    {% endblock %}
+                </ul>
+            <form class="navbar-form navbar-right" role="search" action="{{ url_for('books.search') }}" method="post"
+                  name="search">
+                    <div class="form-group">
+                    <input type="text" name='query' class="form-control" placeholder="Search">
+
+                    </div>
+                    <button type="submit" class="btn btn-default"><span class=" glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </nav>
+{% endblock %}
+
+
+{% block content %}
+
+<div id="wrapper" style="padding-bottom:60px;">
+     <div class="loading"><span> Loading...</span></div>
+
+    <div class="container">
+
+        <div class="row">
+            {% block leftnav %}
+            <div id="left-nav">
+                <div class="col-sm-3 col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Book Source</div>
+                        <div class="list-group">
+
+                            {% for data in book_src %}
+                          <a href="{{url_for('books.source',name=data['_id'],page=1)}}"  class="list-group-item"><span class="badge">{{data['count']}}</span>{{data['_id']|title}}</a>
+                            {% endfor %}
+                        </div>
+                        <div class="panel-heading">Genre</div>
+                        <div class="list-group">
+
+
+                            {% for data in book_src_g %}
+                            <a href="{{url_for('books.test',name=data['_id'],page=1)}}"  class="list-group-item"><span class="badge">{{data['count']}}</span> <font size="-1">{{data['_id']| replace('_',' ')}}</font>></a>
+
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+
+ 	<div id="information">
+                         {% block page_information %}{% endblock %}
+
+                    </div>
+            <div id="main-content">
+                {% block page_content %}{% endblock %}
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+$( ".load" ).click(function() {
+  $( ".loading" ).show();
+});
+
+</script>
+
+
+<footer style="background: WhiteSmoke;border-top: double;left: 0;bottom: 0;width: 100%;position:fixed">
+    <table><tr><td><img align = left width="50" height="50" src="{{url_for('static', filename= 'image/nsf.png')}}" /></td>
+    <td><p><font size="4" face="Times New Roman">  This project was partially funded by NSF award 1549549 in collaboration with Booxby </font>
+    <font size="3">(you can see the Booxby website <a href="http://www.booxby.com/">here</a>)</font>
+    </p></td>
+    </tr></table>
+
+
+</footer>
+
+{% endblock %}
+
+
+

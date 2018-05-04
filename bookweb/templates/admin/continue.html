@@ -1,0 +1,37 @@
+{% extends  'admin/master.html' %}
+{% import "_forms.html" as forms %}
+
+{% block body %}
+
+
+<hr/>
+
+<style>
+
+    textarea {
+	width: 1000px;
+
+
+}
+</style>
+
+<form action="{{url_for('.create_continue',id=model.id)}}" method="post" >
+    <p>Please edit or remove  the content that is not the actual content of the book </p>
+    <hr/>
+    <div>
+       {{ forms.render(form) }}
+        <div class="actions">
+            <button class="btn btn-primary" type="submit">Save</button>
+
+        </div>
+    </div>
+
+</form>
+
+{% endblock %}
+
+{% block tail %}
+{{ super() }}
+
+
+{% endblock %}
