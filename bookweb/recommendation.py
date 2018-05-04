@@ -62,7 +62,7 @@ class FeatureForm(Form):
 
 
 def build_url(x):
-    print x
+
     book = Book.objects.get(book_id=x)
 
     return '<a href="' + url_for('books.detail', id=book.book_id, slug=book.slug) + '">' + book.title.title() + '</a>'
