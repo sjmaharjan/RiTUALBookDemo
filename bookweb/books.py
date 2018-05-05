@@ -126,7 +126,7 @@ class DetailView(MethodView):
             valueForPi.append(changeStringToInputForPi.get(item)[0])
         #diagram
         trace = go.Pie(labels=listOfEmotionForPi, values=valueForPi)
-   	print "##########"
+    	print "##########"
         print valueForPi
         print "##########"
         pi_plot=plot([trace],output_type='div')

@@ -29,8 +29,8 @@ from flask_httpauth import HTTPBasicAuth
 app = Flask(__name__)
 
 basic_auth = BasicAuth(app)
-app.config['BASIC_AUTH_USERNAME'] = 'test4'
-app.config['BASIC_AUTH_PASSWORD'] = 'mahsa'
+app.config['BASIC_AUTH_USERNAME'] = 'xxxxxx'
+app.config['BASIC_AUTH_PASSWORD'] = 'yyyyyy'
 bootstrap = Bootstrap()
 db = MongoEngine()
 moment = Moment()

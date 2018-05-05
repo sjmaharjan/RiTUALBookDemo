@@ -104,10 +104,7 @@ def get_feature(f_name):
         phonetic_scores=phonetic.PhonemeGroupBasedFeatures(),
 
 
-    #stress patterns
-        stress_ngrams=phonetic.StressNgramsVectorizer(ngram_range=(3, 3), min_df=2),
-        stress_scores=phonetic.StressFeatures(),
-    
+
     )
 
     return features_dic[f_name]

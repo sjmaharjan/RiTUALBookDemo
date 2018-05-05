@@ -110,7 +110,7 @@ def myChart(most_similar,index0):
 def getAvg(most_similar,index0):
     y=[]
     for col in most_similar.columns:
-        print col
+        print (col)
     for index, row in most_similar.iterrows():
         for col in most_similar.columns:
             if  index==index0 and (col=="avg" or col=="explan_avg" or col=="feature_avg"):

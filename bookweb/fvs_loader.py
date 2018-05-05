@@ -144,39 +144,3 @@ class EmbeddingLoader(object):
 
         return emb
 
-
-
-
-class ExperientialLanguageEmbeddingInitializer(object):
-    """
-    Initialize Experiential Language Embeddings  with the app
-
-    """
-
-
-    def __init__(self, app=None, config=None):
-        if app is not None:
-            self.init_app(app, config)
-
-    def init_app(self, app, config=None):
-
-        app.feature_extensions = getattr(app, 'feature_extensions', {})
-
-        if not 'explangemb' in app.feature_extensions:
-            app.feature_extensions['explangemb'] = {}
-
-        if self in app.feature_extensions['explangemb']:
-            raise Exception('Experiential language embeddings already initialized')
-
-        if not config:
-            config = app.config
-
-        embedding= EmbeddingLoader(config)
-        print 'Done loading experiential language vectors'
-
-        app.feature_extensions['explangemb'][self] = {'app': app,
-                                                          'embeddings': embedding}
-
-    @property
-    def embeddings(self):
-        return current_app.feature_extensions['explangemb'][self]['embeddings']

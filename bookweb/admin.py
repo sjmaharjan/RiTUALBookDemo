@@ -33,7 +33,7 @@ def requires_auth(f):
     def decorated(*args, **kwargs):
 
         auth = request.authorization
-        if not auth or not (auth.username == 'admin_ritual' and auth.password == 'Random1368_Test'):
+        if not auth or not (auth.username == 'yyyyyyyy' and auth.password == 'xxxxxxxxx'):
             return Response(
             'Could not verify your access level for that URL.\n'
             'You have to login with proper credentials', 401,
