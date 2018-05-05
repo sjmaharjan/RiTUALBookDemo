@@ -1,4 +1,4 @@
-__author__ = 'suraj'
+__author__ = 'masha'
 
 from flask import Flask
 from flask_httpauth import HTTPBasicAuth
