@@ -22,9 +22,6 @@ from bookweb import create_app
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
 
-
-
-
 # Turn on debugger by default and reloader
 manager.add_command("runserver", Server(
     use_debugger=True,
@@ -34,11 +31,5 @@ manager.add_command("runserver", Server(
     #    port='9000'
 ))
 
-
-
-
-
-
 if __name__ == "__main__":
-    # insertgutenbergbooks()
     manager.run()
