@@ -9,9 +9,10 @@ import json
 import codecs
 import yaml
 
-# Set the path
+
 __author__ = 'suraj'
 
+# Set the path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__))))
 
 from flask_script import Manager, Command
