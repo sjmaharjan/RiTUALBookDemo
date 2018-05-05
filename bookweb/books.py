@@ -126,9 +126,9 @@ class DetailView(MethodView):
             valueForPi.append(changeStringToInputForPi.get(item)[0])
         #diagram
         trace = go.Pie(labels=listOfEmotionForPi, values=valueForPi)
-    	print "##########"
-        print valueForPi
-        print "##########"
+        # print ("##########")
+        # print (valueForPi)
+        # print ("##########")
         pi_plot=plot([trace],output_type='div')
 
         my_plot_div=plot([Scatter(x=x,y=joy,name='joy'),Scatter(x=x,y=fear,name='fear'),Scatter(x=x,y=anger,name='anger'),Scatter(x=x,y=anticipation,name='anticipation'),Scatter(x=x,y=disgust,name='disgust'),
@@ -168,7 +168,7 @@ class DetailView(MethodView):
 def makeDict():
     d = {}
     d2 ={}
-    with open("/home/mahsa/ml-master2/ml-master/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt") as f:
+    with open("./NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt") as f:
         first_line= f.readline()
         preWord=first_line.split()[0].strip()
         for line in f:

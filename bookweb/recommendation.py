@@ -93,7 +93,7 @@ def myChart(most_similar,index0):
         if col != "Title" and col != "avg" and col != "explan_avg" and col != "feature_avg" and col!="image_title" and col!="slug":
             x.append(col)
     for index, row in most_similar.iterrows():
-        print index
+        # print index
         for col in most_similar.columns:
             if  index==index0 and col!="Title" and col!="avg" and col!="explan_avg" and col!="feature_avg" and col!="image_title" and col!="slug":
                 y.append(row[col])
@@ -101,10 +101,10 @@ def myChart(most_similar,index0):
         f=go.Bar(
                 x=x,
                 y=y)
-    print x
-    print "------------"
-    print y
-    print "++++++++++"
+    # print x
+    # print "------------"
+    # print y
+    # print "++++++++++"
     return f
 
 def getAvg(most_similar,index0):
@@ -181,8 +181,8 @@ class ListView(MethodView):
 
             myfeatures.append(f)
         for f in myfeatures:
-            print ("##################")
-            print f
+            # print ("##################")
+            # print (f)
 
         #new api
         recommendation=Recommendation()
@@ -388,9 +388,9 @@ def all_kernels_recommendations(id):
     myfeatures=[]
     for f in features:
         myfeatures.append(f)
-    for f in myfeatures:
-        print ("##################")
-        print f
+    # for f in myfeatures:
+        # print ("##################")
+        # print f
     recommendation=Recommendation()
     feature_layer=FeaturesSimilarity(book,features)
     recommendation.add_layer(feature_layer)
@@ -405,7 +405,7 @@ def all_kernels_recommendations(id):
     return render_template('recommendations/kernels.html', book=book,recos=result,n_reco=n)
 
 def findSimilarity0():
-    print "inja"
+    print ("inja")
     f = open("/home/ritual/Desktop/resultSimilarity_new.txt", "w")
     books = Book.objects(is_active=True).timeout(False).all()
     for book in books:
@@ -439,13 +439,13 @@ def findSimilarity0():
         time.sleep(3)
 
 def findSimilarity0():
-    print "inja"
+    print ("inja")
     counter=0 
     books = Book.objects(is_active=True).timeout(False).all()
     for book in books:
-	print counter
+	print (counter)
 	counter=counter+1
-	print "*****"
+	print( "*****")
 	if book.most_similar is None or book.least_similar is None:
         	app = current_app._get_current_object()
         	features = app.config['FEATURES']

@@ -19,6 +19,7 @@ class FeatureLoader(object):
 
 
     """
+
     def __init__(self, feature, config):
         self.load_dir = config['VECTORS']
         self._feature = feature
@@ -30,10 +31,10 @@ class FeatureLoader(object):
 
     def vectors(self):
         if not hasattr(self, 'vectors_'):
-            print "Loading vectors ....."
-            self.vectors_ =  joblib.load(os.path.join(self.load_dir, self._feature + '.vector'))
+            print
+            "Loading vectors ....."
+            self.vectors_ = joblib.load(os.path.join(self.load_dir, self._feature + '.vector'))
         return self.vectors_
-
 
     def ids(self):
         if not hasattr(self, 'ids_'):
@@ -56,7 +57,6 @@ class FeatureInitializer(object):
 
     """
 
-
     def __init__(self, app=None, config=None):
         if app is not None:
             self.init_app(app, config)
@@ -78,35 +78,34 @@ class FeatureInitializer(object):
 
         features_to_load = config['FEATURES']
         load_dir = config['VECTORS']
-        myFeatures={}
+        myFeatures = {}
         features_dictionary = {}
         for feature in features_to_load:
             if isinstance(feature, list):
                 feature = "-".join(feature)
-            myFeatures[feature]=joblib.load(os.path.join(load_dir, feature + '.vector'))
+            myFeatures[feature] = joblib.load(os.path.join(load_dir, feature + '.vector'))
             if os.path.exists(os.path.join(load_dir, feature + '.vector')):
-                print "Loding features", feature
+                print(
+                "Loding features", feature)
                 # features_dictionary[features] = {'model': joblib.load(os.path.join(load_dir, features + '.model')),
                 #                                 'vectors': joblib.load(os.path.join(load_dir, features + '.vector')),
                 #                                 'ids': joblib.load(os.path.join(load_dir, features + '.books'))}
-                features_dictionary[feature] =FeatureLoader(feature,config)
-        print 'Done loading features vectors'
+                features_dictionary[feature] = FeatureLoader(feature, config)
+        print
+        'Done loading features vectors'
 
-        app.feature_extensions['featurevectors'][self] = {'app': app,'features': features_dictionary}
-        app.myFeature=myFeatures
+        app.feature_extensions['featurevectors'][self] = {'app': app, 'features': features_dictionary}
+        app.myFeature = myFeatures
 
     @property
     def feature_vectors(self):
         return current_app.feature_extensions['featurevectors'][self]['features']
 
 
-
-
-
-
 class EmbeddingLoader(object):
     """Loads the experiential language embeddings
     """
+
     def __init__(self, config):
         self.exp_lang_path = config['EXPLANGEMB']
 
@@ -120,9 +119,7 @@ class EmbeddingLoader(object):
             self.load_embedding()
         return self._dimension
 
-
-
-    def phrase_embedding(self,words):
+    def phrase_embedding(self, words):
         if not hasattr(self, '_exp_lang_emb'):
             self.load_embedding()
 
@@ -133,14 +130,13 @@ class EmbeddingLoader(object):
         # Loop over each word in the review and, if it is in the model's
         # vocaublary, add its embedding vector to the total
         for word in words.split():
-            word=word.lower()
+            word = word.lower()
             if word in self._index2word_set:
                 nwords = nwords + 1.
                 emb = np.add(emb, self._exp_lang_emb[word])
         #
         # Divide the result by the number of words to get the average
-        if nwords>0.0:
+        if nwords > 0.0:
             emb = np.divide(emb, nwords)
 
         return emb
-

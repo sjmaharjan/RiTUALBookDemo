@@ -292,16 +292,16 @@ class AuthorsBookModelView(BookModelView):
 
 @celery.task
 def dump_to_tmp(id, dump_dir):
-    print "%%%%%%%%%%%%%%%%%%%%%%%%%"
-    print dump_dir
-    print "%%%%%%%%%%%%%%%%%%%%%%%%%"
+    # print ("%%%%%%%%%%%%%%%%%%%%%%%%%")
+    # print (dump_dir)
+    # print ("%%%%%%%%%%%%%%%%%%%%%%%%%")
     from bookweb.models import Book
     book = Book.objects.get(book_id=id)
     fname = book.book_id + '.txt' if not book.isbn_10 else book.book_id + '_' + book.isbn_10 + '.txt'
     if not os.path.exists(os.path.join(dump_dir, fname)):
         with codecs.open(os.path.join(dump_dir, fname), 'w', encoding='utf-8') as f_out:
             content = book.content.replace('\n', ' ').replace('\r', '').replace('\x0C', '')
-            content = re.sub(ur'[\u4e00-\u9fff]+', '', content)
+            content = re.sub(r'[\u4e00-\u9fff]+', '', content)
             f_out.write(content)
     return os.path.join(dump_dir, fname)
 
