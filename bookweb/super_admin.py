@@ -79,12 +79,6 @@ def get_book_content(fname, skip=None):
         return ""
 
 
-# @admin.route('/uploads/<filename>')
-# def uploaded_file(filename):
-#     app = current_app._get_current_object()
-#     return send_from_directory(app.config['UPLOAD_FOLDER'],
-#                                filename)
-
 
 class List(MethodView):
     cls = Book
