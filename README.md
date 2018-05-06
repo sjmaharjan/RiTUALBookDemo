@@ -6,6 +6,6 @@ Book Analytic System. Extract different types of features from a  book content a
 
 <img width="1309" alt="screen shot 2018-05-06 at 12 51 34 am" src="https://user-images.githubusercontent.com/32992131/39670334-08d35e68-50c8-11e8-9ba7-8f078b479285.png">
 
-<img width="893" alt="screen shot 2018-05-06 at 12 51 45 am" src="https://user-images.githubusercontent.com/32992131/39670336-1061deac-50c8-11e8-93a9-b280d2a65c88.png">
+<img width="1263" alt="screen shot 2018-05-06 at 12 56 36 am" src="https://user-images.githubusercontent.com/32992131/39670352-72525c90-50c8-11e8-98fd-13f6a38859bb.png">
 
 <img width="1291" alt="screen shot 2018-05-06 at 12 51 54 am" src="https://user-images.githubusercontent.com/32992131/39670342-1db4ba70-50c8-11e8-9691-351b1f7d9b8f.png">
