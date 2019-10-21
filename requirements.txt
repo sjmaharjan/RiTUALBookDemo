@@ -19,7 +19,7 @@ flower==0.9.1
 joblib==0.9.4
 mongoengine==0.10.1
 networkx==1.11
-nltk==3.2.1
+nltk==3.4.5
 oauthlib==0.6.1
 pdfminer==20140328
 python-docx==0.8.6
