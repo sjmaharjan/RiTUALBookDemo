@@ -7,7 +7,7 @@ Flask-Moment==0.5.1
 Flask-Script==2.0.5
 Flask-WTF==0.12
 Jinja2==2.8
-Pillow==2.3.0
+Pillow==8.1.1
 PyYAML==3.11
 SPARQLWrapper==1.7.6
 WTForms==1.0.5
